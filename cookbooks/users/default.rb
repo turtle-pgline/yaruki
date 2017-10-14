@@ -4,7 +4,8 @@ require 'unix_crypt'
 
 {
   # username => github name
-  'yuki_sone' => 'naari3'
+  'yuki_sone' => 'naari3',
+  `mox` => `moezakura`
 }.each_pair do |name, github|
   user name do
     action :create
