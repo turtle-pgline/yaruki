@@ -13,7 +13,7 @@ require 'unix_crypt'
     password UnixCrypt::SHA512.build(name)
     shell '/bin/bash'
     create_home true
-    not_if "cat /etc/passwd | grep #{name}"
+    not_if "cat /etc/passwd | grep -E ^#{name}:"
   end
 
   execute "Get Authorized keys by GitHub(#{name})" do
