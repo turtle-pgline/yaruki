@@ -5,7 +5,7 @@ package 'unzip' do
 end
 
 execute 'download alp' do
-  command 'wget "https://github.com/tkuchiki/alp/releases/download/v0.3.1/alp_linux_amd64.zip"'
+  command 'wget "https://github.com/tkuchiki/alp/releases/download/v1.0.0/alp_linux_amd64.zip"'
   not_if 'alp --version'
 end
 
