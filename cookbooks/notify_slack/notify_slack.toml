@@ -1,0 +1,5 @@
+[slack]
+url = "https://hooks.slack.com/services/**"
+username = "pray"
+icon_emoji = ":pray:"
+interval = "1s"
