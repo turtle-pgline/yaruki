@@ -2,36 +2,19 @@
 
 require 'unix_crypt'
 
-{
-  # username => github name
-  'mox' => 'moezakura',
-  'r' => 'ryota-sakamoto',
-  'yuki_sone' => 'naari3'
-}.each_pair do |name, github|
-  user name do
-    action :create
-    password UnixCrypt::SHA512.build(name)
-    shell '/bin/bash'
-    create_home true
-    not_if "cat /etc/passwd | grep -E ^#{name}:"
-  end
+name = 'root'
 
-  execute "Get Authorized keys by GitHub(#{name})" do
+['zzuf', 'ryota-sakamoto', 'naari3'].each do |github|
+  execute "Get Authorized keys by GitHub(#{github})" do
     action :nothing
-    subscribes :run, "user[#{name}]"
-    user name
-    cwd "/home/#{name}"
+    subscribes :run, "user[#{github}]"
+    user 'root'
+    cwd '/root'
     command <<-COMMANDS
       mkdir ~/.ssh
       curl -L http://github.com/#{github}.keys > ~/.ssh/authorized_keys
       chmod 700 ~/.ssh
       chmod 600 ~/.ssh/authorized_keys
     COMMANDS
-  end
-
-  execute "Add sudo group(#{name})" do
-    action :nothing
-    subscribes :run, "user[#{name}]"
-    command "usermod -G sudo #{name}"
   end
 end
